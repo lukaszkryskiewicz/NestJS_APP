@@ -18,12 +18,14 @@ model Product {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  orders    Order[]
 }
 
 model Order {
-  id        String @id @default(uuid())
+  id        String   @id @default(uuid())
   client    String
-  productId String
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  productId String?
   address   String
 
   createdAt DateTime @default(now())
